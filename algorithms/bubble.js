@@ -42,4 +42,11 @@ export function* bubbleSort(data) {
 
     if (!swapped) break;
   }
+
+  yield {
+    data,
+    comparing: [],
+    moving: [],
+    sorted: Array.from({ length: n }, (_, k) => k),
+  };
 }

@@ -38,4 +38,11 @@ export function* selectionSort(data) {
 
     [data[i], data[smallestIndex]] = [data[smallestIndex], data[i]];
   }
+
+  yield {
+    data,
+    comparing: [],
+    moving: [],
+    sorted: Array.from({ length: n }, (_, k) => k),
+  };
 }
