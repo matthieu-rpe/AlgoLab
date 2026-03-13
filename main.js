@@ -1,6 +1,7 @@
 import { Visualizer } from "./visualizer.js";
 
 import { bubbleSort } from "./algorithms/bubble.js";
+import { selectionSort } from "./algorithms/selection.js";
 
 let timer = null;
 let algos = [];
@@ -18,6 +19,10 @@ function init() {
     {
       engine: bubbleSort([...randomData]),
       visualizer: new Visualizer("bubble-canvas"),
+    },
+    {
+      engine: selectionSort([...randomData]),
+      visualizer: new Visualizer("selection-canvas"),
     },
   ];
 
