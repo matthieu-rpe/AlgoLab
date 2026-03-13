@@ -8,6 +8,23 @@ let flaggedTime = null;
 let accumulatedTime = 0;
 let algos = [];
 
+function displayTime(algo, ms) {
+  const timerId = algo.visualizer.canvas.id.replace("-canvas", "-timer");
+  const el = document.getElementById(timerId);
+  if (el) {
+    el.innerText = `[${(ms / 1000).toFixed(1)}s]`;
+  }
+}
+
+function stop() {
+  if (timer) {
+    document.getElementById("play").innerText = "Start";
+    accumulatedTime += performance.now() - flaggedTime;
+    clearInterval(timer);
+    timer = null;
+  }
+}
+
 function init() {
   stop();
 
@@ -39,61 +56,42 @@ function init() {
   });
 }
 
-function stop() {
-  if (timer) {
-    document.getElementById("play").innerText = "Start";
-    accumulatedTime += performance.now() - flaggedTime;
-    clearInterval(timer);
-    timer = null;
-  }
-}
+function run() {
+  if (!!timer) return;
 
-function togglePlay() {
-  if (timer) {
-    stop();
-  } else {
-    document.getElementById("play").innerText = "Stop";
-    flaggedTime = performance.now();
+  document.getElementById("play").innerText = "Stop";
+  flaggedTime = performance.now();
 
-    timer = setInterval(() => {
-      const totalElapsed = accumulatedTime + (performance.now() - flaggedTime);
+  timer = setInterval(() => {
+    const totalElapsed = accumulatedTime + (performance.now() - flaggedTime);
 
-      let allDone = true;
+    let allDone = true;
 
-      algos.forEach((a) => {
-        if (a.done) return;
-        displayTime(a, totalElapsed);
+    algos.forEach((a) => {
+      if (a.done) return;
+      displayTime(a, totalElapsed);
 
-        allDone = false;
+      allDone = false;
 
-        const step = a.engine.next();
+      const step = a.engine.next();
 
-        if (step.done) {
-          a.done = true;
-        } else {
-          a.visualizer.draw(
-            step.value.data,
-            step.value.comparing,
-            step.value.moving,
-            step.value.sorted
-          );
-        }
-      });
+      if (step.done) {
+        a.done = true;
+      } else {
+        a.visualizer.draw(
+          step.value.data,
+          step.value.comparing,
+          step.value.moving,
+          step.value.sorted
+        );
+      }
+    });
 
-      if (allDone) stop();
-    }, parseInt(document.getElementById("speed").value));
-  }
-}
-
-function displayTime(algo, ms) {
-  const timerId = algo.visualizer.canvas.id.replace("-canvas", "-timer");
-  const el = document.getElementById(timerId);
-  if (el) {
-    el.innerText = `[${(ms / 1000).toFixed(1)}s]`;
-  }
+    if (allDone) stop();
+  }, parseInt(document.getElementById("speed").value));
 }
 
 document.getElementById("reset").onclick = init;
-document.getElementById("play").onclick = togglePlay;
+document.getElementById("play").onclick = () => (!!timer ? stop() : run());
 
 init();
