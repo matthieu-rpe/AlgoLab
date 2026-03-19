@@ -1,11 +1,19 @@
 <script setup lang="ts">
-import SortingEngines from './pages/SortingEngines.vue';
+import { RouterView } from 'vue-router';
 </script>
 
 <template>
-  <div>
-    <SortingEngines />
-  </div>
+  <header>
+    <nav>
+      <RouterLink :to="{ name: 'sorting-algorithms' }">
+        Sorting Algorithms
+      </RouterLink>
+    </nav>
+  </header>
+
+  <main>
+    <RouterView />
+  </main>
 </template>
 
 <style>
