@@ -6,11 +6,13 @@ import type { Algorithm, SortingEngine } from '@/types/algorithm';
 import { mergeSort } from '@/algorithms/sorting-engines/merge';
 import { bubbleSort } from '@/algorithms/sorting-engines/bubble';
 import { selectionSort } from '@/algorithms/sorting-engines/selection';
+import { quickSort } from '@/algorithms/sorting-engines/quick';
 
 const configs = [
   { id: 'bubble', sort: bubbleSort },
   { id: 'selection', sort: selectionSort },
   { id: 'merge', sort: mergeSort },
+  { id: 'quick', sort: quickSort },
 ];
 
 export const useSortingAlgorithmsStore = defineStore(
