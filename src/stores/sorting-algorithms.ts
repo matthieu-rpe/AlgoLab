@@ -7,12 +7,14 @@ import { mergeSort } from '@/algorithms/sorting-engines/merge';
 import { bubbleSort } from '@/algorithms/sorting-engines/bubble';
 import { selectionSort } from '@/algorithms/sorting-engines/selection';
 import { quickSort } from '@/algorithms/sorting-engines/quick';
+import { radixSort } from '@/algorithms/sorting-engines/radix';
 
 const configs = [
   { id: 'bubble', sort: bubbleSort },
   { id: 'selection', sort: selectionSort },
   { id: 'merge', sort: mergeSort },
   { id: 'quick', sort: quickSort },
+  { id: 'radix', sort: radixSort },
 ];
 
 export const useSortingAlgorithmsStore = defineStore(
