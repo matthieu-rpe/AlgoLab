@@ -74,7 +74,7 @@ onMounted(() => {
 
 <style lang="css" scoped>
 .visualizer {
-  flex: 1 1 300px;
+  flex: 1 0 200px;
 
   display: flex;
   flex-direction: column;
